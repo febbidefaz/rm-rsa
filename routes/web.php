@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::redirect('/', '/login');
+Route::get('/', function () {
+    return redirect('login');
+});
 
 
 
