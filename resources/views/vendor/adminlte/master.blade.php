@@ -18,8 +18,7 @@
         @yield('title', config('adminlte.title', 'AdminLTE 3'))
         @yield('title_postfix', config('adminlte.title_postfix', ''))
     </title>
-    <link rel="icon" type="image/png" href="{{ asset('rm.png') }}?v=10">
-    <link rel="shortcut icon" type="image/png" href="{{ asset('rm.png') }}?v=10">
+    <link rel="icon" type="image/png" href="{{ asset('rm.png') }}">
 
     {{-- IFrame Preloader Removal Workaround --}}
     <!-- IFrame Preloader Removal Workaround -->
