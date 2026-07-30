@@ -16,6 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
             Route::middleware('web')
                 ->group(base_path('routes/userrm.php'));
+          
+            Route::middleware('web')
+                ->group(base_path('routes/antrol.php'));
         }
     )
     ->withMiddleware(function (Middleware $middleware): void {

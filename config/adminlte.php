@@ -314,6 +314,12 @@ return [
             'url' => '/mjkn/batal-antrean',
             'icon' => 'fas fa-fw fa-user',
         ],
+        ['header' => 'REPORT'],
+        [
+            'text' => 'Antrol PerDokter',
+            'route' => 'antrol.report.index',
+            'icon' => 'fas fa-clipboard-list',
+        ],
         ['header' => 'SISTEM','can' => 'admin',],
         
         
