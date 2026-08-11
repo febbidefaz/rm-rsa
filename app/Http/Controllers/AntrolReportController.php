@@ -226,4 +226,114 @@ class AntrolReportController extends Controller
 
         return "{$jam}:{$menit}:{$detik}";
     }
+
+    public function updateTask(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'task_number' => [
+                'required',
+                'integer',
+                'in:4,5,6,7',
+            ],
+    
+            'task_id' => [
+                'required',
+                'regex:/^\d+$/',
+            ],
+    
+            'adjust_minutes' => [
+                'required',
+                'integer',
+                'min:-1440',
+                'max:1440',
+            ],
+        ]);
+    
+        try {
+    
+            $taskNumber = (int) $validated['task_number'];
+    
+            $taskIdLama = (int) $validated['task_id'];
+    
+            $menit = (int) $validated['adjust_minutes'];
+    
+            /*
+             * Tentukan kolom yang akan diupdate
+             */
+            $column = 'task_id_' . $taskNumber;
+    
+            /*
+             * 1 menit = 60.000 millisecond
+             */
+            $taskIdBaru =
+                $taskIdLama + ($menit * 60000);
+    
+    
+            DB::beginTransaction();
+    
+    
+            $updated = DB::table('TimeLineTask')
+                ->where($column, $taskIdLama)
+                ->update([
+                    $column => $taskIdBaru,
+                ]);
+    
+    
+            if ($updated === 0) {
+    
+                DB::rollBack();
+    
+                return response()->json([
+                    'success' => false,
+                    'message' =>
+                        "Task ID {$taskNumber} tidak ditemukan.",
+                ], 404);
+            }
+    
+    
+            DB::commit();
+    
+    
+            return response()->json([
+    
+                'success' => true,
+    
+                'message' =>
+                    "T{$taskNumber} berhasil diperbarui.",
+    
+                'task' =>
+                    $taskNumber,
+    
+                'task_id_lama' =>
+                    (string) $taskIdLama,
+    
+                'task_id_baru' =>
+                    (string) $taskIdBaru,
+    
+                'adjust_minutes' =>
+                    $menit,
+            ]);
+    
+    
+        } catch (Throwable $e) {
+    
+            DB::rollBack();
+    
+            report($e);
+    
+            return response()->json([
+    
+                'success' => false,
+    
+                'message' =>
+                    'Gagal memperbarui Task ID.',
+    
+                'error' =>
+                    config('app.debug')
+                        ? $e->getMessage()
+                        : null,
+    
+            ], 500);
+        }
+    }
 }

@@ -11,4 +11,7 @@ Route::prefix('antrol')->group(function () {
     Route::get('/report/data', [AntrolReportController::class, 'data'])
         ->name('antrol.report.data');
 
+    Route::patch('/report/task',[AntrolReportController::class, 'updateTask']
+        )->name('antrol.report.task.update');
+
 });
