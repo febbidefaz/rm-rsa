@@ -19,6 +19,9 @@ return Application::configure(basePath: dirname(__DIR__))
           
             Route::middleware('web')
                 ->group(base_path('routes/antrol.php'));
+           
+            Route::middleware('web')
+                ->group(base_path('routes/followup.php'));     
         }
     )
     ->withMiddleware(function (Middleware $middleware): void {
