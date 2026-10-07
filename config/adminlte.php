@@ -314,12 +314,13 @@ return [
             'url' => '/mjkn/batal-antrean',
             'icon' => 'fas fa-fw fa-user',
         ],
-      /*  ['header' => 'PASIEN'],
+        
+        ['header' => 'PASIEN'],
         [
             'text' => 'Rawat Jalan',
             'route' => 'rawatjalan.index',
             'icon' => 'fas fa-fw fa-notes-medical',
-        ], */
+        ], 
         
         ['header' => 'REPORT'],
         [
@@ -327,6 +328,7 @@ return [
             'route' => 'antrol.report.index',
             'icon' => 'fas fa-clipboard-list',
         ],
+        
         ['header' => 'SISTEM','can' => 'admin',],       
         
             [
